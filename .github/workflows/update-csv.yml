@@ -1,0 +1,27 @@
+
+name: Update CSV from OneDrive
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # toutes les 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Download CSV from OneDrive
+        run: |
+          curl -L "https://ozonesarl-my.sharepoint.com/personal/stephane_garcia_ozone-conseils_fr/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fstephane_garcia_ozone-conseils_fr%2FDocuments%2FSG%2FDocs_SG%2FBridge%2FBouffémont%2FCommunication%2FSuedois%2Finscriptions_suedois.csv" -o inscriptions_suedois.csv
+
+      - name: Commit and push
+        run: |
+          git config user.name "AutoUpdate"
+          git config user.email "update@example.com"
+          git add inscriptions_suedois.csv
+          git commit -m "Auto update from OneDrive" || echo "No changes to commit"
+          git push
