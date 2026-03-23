@@ -10,11 +10,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Download CSV
-        run: |
+        run: >
           curl -L "https://ozonesarl-my.sharepoint.com/personal/stephane_garcia_ozone-conseils_fr/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fstephane_garcia_ozone-conseils_fr%2FDocuments%2FSG%2FDocs_SG%2FBridge%2FBouffémont%2FCommunication%2FSuedois%2Finscriptions_suedois.csv" -o inscriptions_suedois.csv
 
       - name: Commit updates
