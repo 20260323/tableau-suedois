@@ -1,1 +1,65 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Inscriptions Suédois</title><style>body {  font-family: Arial, sans-serif;  padding: 20px;}table {  width: 100%;  border-collapse: collapse;  margin-top: 20px;}th, td {  padding: 6px 10px;  border: 1px solid #ccc;  text-align: left;  white-space: nowrap;}th:nth-child(1), td:nth-child(1) { width: 50px; }th:nth-child(2), td:nth-child(2) { width: 200px; }th:nth-child(3), td:nth-child(3) { width: 100px; }th:nth-child(4), td:nth-child(4) { width: 200px; }th:nth-child(5), td:nth-child(5) { width: 100px; }</style></head><body><h2>Liste des inscriptions au Suédois</h2><div id="csv-table">Chargement…</div><script>fetch("https://drive.google.com/uc?export=download&id=1jRPR_yrf4xzyWCd72S859NOxBdGWHj2X")  .then(response => response.text())  .then(text => {    const rows = text.trim().split("\n").map(r => r.split(","));    let html = "<table><thead><tr>";    rows[0].forEach(col => html += `<th>${col}</th>`);    html += "</tr></thead><tbody>";    rows.slice(1).forEach(row => {      html += "<tr>";      row.forEach(cell => html += `<td>${cell}</td>`);      html += "</tr>";    });    html += "</tbody></table>";    document.getElementById("csv-table").innerHTML = html;  })  .catch(err => {    document.getElementById("csv-table").innerHTML = "Impossible de charger les données.";    console.error(err);  });</script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Inscriptions SuÃ©dois</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th:nth-child(1), td:nth-child(1) { width: 50px; }
+th:nth-child(2), td:nth-child(2) { width: 200px; }
+th:nth-child(3), td:nth-child(3) { width: 100px; }
+th:nth-child(4), td:nth-child(4) { width: 200px; }
+th:nth-child(5), td:nth-child(5) { width: 100px; }
+</style>
+
+</head>
+<body>
+
+<h2>Liste des inscriptions au SuÃ©dois</h2>
+
+<div id="csv-table">Chargementâ€¦</div>
+
+<script>
+fetch("https://raw.githubusercontent.com/20260323/tableau-suedois/main/inscriptions_suedois.csv")
+  .then(response => response.text())
+  .then(text => {
+    const rows = text.trim().split("\n").map(r => r.split(","));
+    let html = "<table><thead><tr>";
+    rows[0].forEach(col => html += `<th>${col}</th>`);
+    html += "</tr></thead><tbody>";
+
+    rows.slice(1).forEach(row => {
+      html += "<tr>";
+      row.forEach(cell => html += `<td>${cell}</td>`);
+      html += "</tr>";
+    });
+
+    html += "</tbody></table>";
+    document.getElementById("csv-table").innerHTML = html;
+  })
+  .catch(err => {
+    document.getElementById("csv-table").innerHTML = "Impossible de charger les donnÃ©es.";
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
